@@ -18,7 +18,7 @@ class _AppWidgetState extends State<AppWidget> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primary,
-        scaffoldBackgroundColor: AppColors.background
+        scaffoldBackgroundColor: AppColors.background,
       ),
       initialRoute: '/splash',
       routes: {
