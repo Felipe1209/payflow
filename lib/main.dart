@@ -13,23 +13,39 @@ class AppFirebase extends StatefulWidget {
 }
 
 class _AppFirebaseState extends State<AppFirebase> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  bool _initialized = false;
+  bool _error = false;
+
+  void initializeFlutterFire() async {
+    try {
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch(e) {
+      print(e);
+      setState(() {
+        _error = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Material(child: Center(child: Text('Erro na inicialização do Firebase', textDirection: TextDirection.ltr)));
-        }
+    if(_error) {
+      return Material(child: Center(child: Text('Erro ao inicializar o Firebase', textDirection: TextDirection.ltr),),);
+    }
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          return AppWidget();
-        }
+    if (!_initialized) {
+      return Center(child: CircularProgressIndicator());
+    }
 
-        return Material(child: Center(child: CircularProgressIndicator(),));
-      },
-    );
+    return AppWidget();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payflow/core/core.dart';
+import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/modules/login/widgets/login_button/login_button.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +11,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = LoginController();
+  
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -30,15 +33,10 @@ class _LoginPageState extends State<LoginPage> {
             Text('Organize seus\nboletos em um\nsó lugar', style: AppTextStyles.titleHome, textAlign: TextAlign.center),
             SizedBox(height: size.height * .02),
             LoginButton(onTap: (){
-              Navigator.pushNamed(context, '/home');
+              controller.googleSignIn(context);
             })
-
-
           ]),
         )
-
-
-
       ]),
     );
   }
