@@ -45,7 +45,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Icon(Icons.add_box_outlined, color: Colors.white),
                   ),
-                  onTap: (){}
+                  onTap: (){
+                    Navigator.pushNamed(context, '/barcode');
+                  }
               ),
               IconButton(icon: Icon(Icons.description, color: AppColors.primary), onPressed: (){
                 controller.setPage(1);
